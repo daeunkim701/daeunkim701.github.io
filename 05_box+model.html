@@ -59,12 +59,16 @@
 
     /* STEP 1. 기본 박스모델 */
     .box {
+      /* div */
+      /* block? -> 한 줄을 모두 가지는 */
+      /* inline -> 부분적으로만 적용 받음 */
       width: 200px;
       height: 100px;
-      background: lightblue;
-      border: 5px solid navy;
-      padding: 20px;
-      margin: 20px;
+      /* background: lightblue; */
+      background-color: lightblue;
+      border: 5px solid navy; /* 기본 설정은 내부 content의 크기는 유지하고, border가 추가된다 */
+      padding: 20px; /* 전방향 */
+      margin: 20px; /* 전방향 */
     }
 
     /* STEP 2. margin 충돌 */
