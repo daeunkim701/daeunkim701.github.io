@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS 박스모델 실습</title>
+
+  <!-- ****************************************************
+      [브리핑 — 개념 요약]
+      1) 박스모델(Box Model)
+          - 모든 요소는 네모난 박스로 표시됨.
+          - 4단계 구조:
+            · content: 실제 텍스트·이미지 등 콘텐츠.
+            · padding: 콘텐츠와 border 사이의 내부 여백.
+            · border: 요소 테두리.
+            · margin: 요소와 바깥 요소 사이의 간격.
+      2) width / height
+          - content-box(기본): width·height는 content 영역만 포함.
+          - padding, border는 추가로 늘어남.
+          - border-box: width·height에 padding, border까지 포함.
+      3) background
+          - content + padding 영역에 적용.
+          - border는 border-color로 따로 지정.
+          - margin은 투명.
+      4) border-radius
+          - 테두리 모서리를 둥글게.
+          - background와 border 모두 함께 잘림.
+          - px, %, em 단위 사용 가능.
+            · 50% → 정사각형이면 원형.
+      5) margin 충돌(Collapsing Margins)
+          - 수직 margin(top/bottom)이 겹치면 큰 값 하나만 적용.
+          - 형제·부모-자식 간에서 주로 발생.
+      6) box-sizing
+          - content-box (기본): width=content만.
+          - border-box: width에 padding+border 포함.
+      7) overflow
+          - content가 박스를 넘칠 때 처리 방법.
+          - visible, hidden, scroll, auto 네 가지.
+      ※ 실무 팁
+         - * { box-sizing: border-box; } 자주 사용.
+        - margin 충돌 회피: 부모에 padding이나 border 넣기.
+        - overflow는 모달, 스크롤 컨테이너 구현에 필수.
+     **************************************************** -->
+
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+      background: whitesmoke;
+    }
+
+    .demo {
+      background: white;
+      /* border(외곽선) : 두께 모양 색상 */
+      border: 1px solid gray;
+      /* top right bottom left : 시계방향 */
+      margin-bottom: 40px;
+      padding: 20px;
+    }
+
+    /* STEP 1. 기본 박스모델 */
+    .box {
+      width: 200px;
+      height: 100px;
+      background: lightblue;
+      border: 5px solid navy;
+      padding: 20px;
+      margin: 20px;
+    }
+
+    /* STEP 2. margin 충돌 */
+    .collapse-demo p {
+      background: lightgreen;
+      margin: 20px 0;
+    }
+
+    /* STEP 3. box-sizing */
+    .content-box {
+      box-sizing: content-box; /* 기본값 */
+      width: 200px;
+      padding: 20px;
+      border: 5px solid red;
+      background: pink;
+      margin: 10px;
+    }
+    .border-box {
+      box-sizing: border-box;
+      width: 200px;
+      padding: 20px;
+      border: 5px solid blue;
+      background: lightyellow;
+      margin: 10px;
+    }
+
+    /* STEP 4. border-radius */
+    .radius-box {
+      width: 120px;
+      height: 120px;
+      background: coral;
+      border: 4px solid darkred;
+      text-align: center;
+      line-height: 120px;
+      font-size: 14px;
+      color: white;
+      font-weight: bold;
+      display: inline-block;
+      margin-right: 20px;
+    }
+    .r10 { border-radius: 10px; }
+    .r50 { border-radius: 50%; }
+
+    /* STEP 5. overflow */
+    .overflow-box {
+      width: 150px;
+      height: 100px;
+      border: 2px solid black;
+      padding: 5px;
+      background: lightgray;
+      font-size: 14px;
+      display: inline-block;
+      vertical-align: top;
+      margin-right: 20px;
+    }
+    .ov-visible { overflow: visible; }
+    .ov-hidden { overflow: hidden; }
+    .ov-scroll { overflow: scroll; }
+    .ov-auto   { overflow: auto; }
+  </style>
+</head>
+<body>
+
+  <h1>CSS 박스모델 실습</h1>
+
+  <!-- 1) 기본 박스모델 -->
+  <div class="demo">
+    <h2>1) 기본 박스모델</h2>
+    <div class="box">콘텐츠</div>
+    <ul>
+      <li>content: 글자, 이미지 등 실제 내용</li>
+      <li>padding: 내부 여백 (배경색 포함)</li>
+      <li>border: 테두리 (border-color)</li>
+      <li>margin: 외부 여백 (투명)</li>
+    </ul>
+  </div>
+
+  <!-- 2) margin 충돌 -->
+  <div class="demo collapse-demo">
+    <h2>2) margin 충돌</h2>
+    <p>첫 번째 단락 (margin-top: 20px)</p>
+    <p>두 번째 단락 (margin-top: 20px)</p>
+    <p>세 번째 단락 (margin-top: 20px)</p>
+    <p>→ 간격은 20px만 (겹쳐서 상쇄됨)</p>
+  </div>
+
+  <!-- 3) box-sizing -->
+  <div class="demo">
+    <h2>3) box-sizing</h2>
+    <div class="content-box">content-box</div>
+    <div class="border-box">border-box</div>
+    <p>
+      두 박스 모두 width:200px; padding:20px; border:5px.<br>
+      → content-box: 총 너비 = 200 + 40 + 10 = 250px<br>
+      → border-box: 총 너비 = 200px 고정
+    </p>
+  </div>
+
+  <!-- 4) border-radius -->
+  <div class="demo">
+    <h2>4) border-radius</h2>
+    <div class="radius-box r10">10px</div>
+    <div class="radius-box r50">50%</div>
+    <p>
+      border-radius는 모서리를 둥글게.<br>
+      - px: 반경 직접 지정 (10px)<br>
+      - %: 비율 기준, 50%면 원형
+    </p>
+  </div>
+
+  <!-- 5) overflow -->
+  <div class="demo">
+    <h2>5) overflow</h2>
+    <div class="overflow-box ov-visible">
+      visible<br>넘쳐도<br>그대로<br>보임
+    </div>
+    <div class="overflow-box ov-hidden">
+      hidden<br>넘치면<br>잘림
+    </div>
+    <div class="overflow-box ov-scroll">
+      scroll<br>항상<br>스크롤<br>표시<br>추가<br>내용
+    </div>
+    <div class="overflow-box ov-auto">
+      auto<br>넘칠 때만<br>스크롤<br>표시<br>추가<br>내용
+    </div>
+    <p>
+      overflow는 content가 박스를 넘칠 때 처리 방식.<br>
+      - visible (기본)<br>
+      - hidden<br>
+      - scroll<br>
+      - auto
+    </p>
+  </div>
+
+</body>
+</html>
