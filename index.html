@@ -1,11 +1,188 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>김다은 — 소개</title>
+  <meta name="description" content="김다은 자기소개서 — HTML & CSS로 만든 원페이지 포트폴리오" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0c10;         /* 배경 */
+      --panel:#11131a;      /* 카드 배경 */
+      --text:#e6e8ef;       /* 기본 글자 */
+      --muted:#aab0c0;      /* 보조 글자 */
+      --brand:#7c9cff;      /* 포인트 */
+      --brand-2:#6efacc;    /* 보조 포인트 */
+      --line:#232639;       /* 경계선 */
+      --radius:16px;
+      --shadow:0 10px 30px rgba(0,0,0,.25);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: 'Pretendard', system-ui, -apple-system, Segoe UI, Roboto, Noto Sans KR, Arial, sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 800px at 85% -10%, rgba(124,156,255,.2), transparent 60%),
+                  radial-gradient(900px 600px at -10% 10%, rgba(110,250,204,.14), transparent 60%),
+                  var(--bg);
+      line-height:1.6;
+    }
+    a{color:var(--brand); text-decoration:none}
+    a:hover{opacity:.9}
+
+    /* 레이아웃 */
+    .container{max-width:1080px; margin:0 auto; padding:24px}
+    header.hero{
+      position:relative;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(124,156,255,.08), rgba(110,250,204,.05));
+      border-radius:calc(var(--radius) * 1.5);
+      padding:40px 28px 28px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .chip{display:inline-block; padding:6px 12px; border:1px solid var(--line); border-radius:999px; color:var(--muted); font-size:.9rem; backdrop-filter: blur(4px)}
+    .name{font-size: clamp(28px, 5vw, 48px); margin:14px 0 6px; letter-spacing:-.02em}
+    .subtitle{color:var(--muted); margin:0 0 18px}
+    .hero-grid{display:grid; grid-template-columns: 120px 1fr; gap:22px; align-items:center}
+    .avatar{
+      width:120px; height:120px; border-radius:50%;
+      background:linear-gradient(135deg, var(--brand), var(--brand-2));
+      position:relative; border:2px solid #1b1f2e; box-shadow:0 8px 24px rgba(124,156,255,.35);
+    }
+    .avatar::after{
+      content:"김"; position:absolute; inset:0; display:grid; place-items:center;
+      font-weight:700; font-size:40px; color:#0b0c10; opacity:.9;
+    }
+
+    /* 섹션 카드 공통 */
+    section{margin-top:28px}
+    .card{border:1px solid var(--line); background:rgba(14,16,24,.6); border-radius:var(--radius); padding:24px; box-shadow:var(--shadow)}
+    .card h2{margin:0 0 12px; font-size:1.4rem}
+    .muted{color:var(--muted)}
+
+    /* 그리드 카드 */
+    .grid{display:grid; gap:16px}
+    @media(min-width:760px){ .grid.cols-2{grid-template-columns:1fr 1fr} }
+    @media(min-width:980px){ .grid.cols-3{grid-template-columns:1fr 1fr 1fr} }
+
+    /* 스킬 배지 */
+    .badges{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px}
+    .badge{padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:#0f1220; font-size:.92rem}
+
+    /* 타임라인 */
+    .timeline{position:relative; padding-left:22px}
+    .timeline::before{content:""; position:absolute; left:9px; top:6px; bottom:6px; width:2px; background:linear-gradient(var(--brand), var(--brand-2))}
+    .item{position:relative; padding:10px 0 10px 12px}
+    .item::before{content:""; position:absolute; left:-2px; top:16px; width:10px; height:10px; background:var(--brand); border-radius:50%; box-shadow:0 0 0 3px rgba(124,156,255,.15)}
+    .item .when{font-size:.9rem; color:var(--muted)}
+
+    /* 프로젝트 카드 */
+    .project{border:1px solid var(--line); border-radius:var(--radius); padding:16px; background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01))}
+    .project h3{margin:0 0 6px}
+    .project p{margin:0 0 10px; color:var(--muted)}
+    .project a.btn{display:inline-block; padding:8px 12px; border:1px solid var(--line); border-radius:10px}
+
+    /* 푸터 */
+    footer{margin:34px 0; text-align:center; color:var(--muted)}
+
+    /* 작은 인터랙션 */
+    .hover-lift{transition: transform .18s ease, box-shadow .18s ease}
+    .hover-lift:hover{transform: translateY(-2px); box-shadow:0 14px 34px rgba(0,0,0,.35)}
+  </style>
 </head>
 <body>
-  <p>안녕하세요 김다은입니다.</p>
+  <div class="container">
+    <header class="hero hover-lift">
+      <span class="chip">About</span>
+      <div class="hero-grid">
+        <div class="avatar" aria-hidden="true"></div>
+        <div>
+          <h1 class="name">김자바</h1>
+          <p class="subtitle">문제를 구조화하고, 사용자를 기쁘게 하는 걸 좋아하는 개발자 지망생. 읽기 쉬운 코드를 사랑하고 기록을 즐깁니다.</p>
+          <p class="muted">관심사 · 웹 개발, Java & Spring, 데이터 시각화, 글쓰기, 사용자 경험</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="grid cols-2">
+      <article class="card">
+        <h2>한 줄 소개</h2>
+        <p>새 기술을 빠르게 흡수하고 작은 실험을 자주 합니다. 기능을 붙이기보다 문제의 핵심을 줄이는 데 집중해요. “돌아가는 것”보다 “이해되는 것”을 지향합니다.</p>
+      </article>
+      <article class="card">
+        <h2>연락처</h2>
+        <p class="muted">이메일 · <a href="mailto:hello@da-eun.example">hello@da-eun.example</a><br>GitHub · <a href="#" target="_blank" rel="noreferrer">github.com/daeun</a></p>
+      </article>
+    </section>
+
+    <section class="card">
+      <h2>보유 스킬</h2>
+      <div class="badges">
+        <span class="badge">Java</span>
+        <span class="badge">Spring Boot</span>
+        <span class="badge">JDBC / JPA</span>
+        <span class="badge">HTML/CSS</span>
+        <span class="badge">JavaScript(기초)</span>
+        <span class="badge">MySQL</span>
+        <span class="badge">Git & GitHub</span>
+        <span class="badge">REST API</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>경험 요약</h2>
+      <div class="timeline">
+        <div class="item">
+          <div><strong>메모 웹앱</strong> — 개인 프로젝트</div>
+          <div class="when">2025</div>
+          <div class="muted">Java + JSP/Servlet으로 CRUD 구현, Render 배포 시도, GitHub Actions로 빌드 자동화 실험</div>
+        </div>
+        <div class="item">
+          <div><strong>스터디 · 자료구조/알고리즘</strong></div>
+          <div class="when">2024–2025</div>
+          <div class="muted">문제 풀이 기록과 복기, 정렬/탐색/그리디/DP 기본기 다지기</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="grid cols-3">
+        <article class="project hover-lift">
+          <h3>메모 애플리케이션</h3>
+          <p>간단한 메모 작성/수정/삭제 기능. JDBC로 MySQL 연동, MVC 구조 적용.</p>
+          <a class="btn" href="#" aria-label="프로젝트 보기">GitHub 바로가기</a>
+        </article>
+        <article class="project hover-lift">
+          <h3>UI 실험 모음</h3>
+          <p>CSS만으로 구현한 마이크로 인터랙션과 레이아웃 실험.</p>
+          <a class="btn" href="#">데모 보기</a>
+        </article>
+        <article class="project hover-lift">
+          <h3>학습 노트</h3>
+          <p>읽고, 실험하고, 기록한 내용의 아카이브. 트러블슈팅 정리.</p>
+          <a class="btn" href="#">정리 문서</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>관심사</h2>
+      <p class="muted">문제를 쪼개고 자동화하는 일에 유난히 끌립니다. UI 디테일에 집착하는 편이라 마이크로 인터랙션을 자주 스케치해요. 주말엔 개발 블로그에 글을 올리며 배운 것을 언어로 다시 다집니다.</p>
+    </section>
+
+    <footer>
+      <small>© <span id="y"></span> 김다은 — Made with HTML & CSS</small>
+    </footer>
+  </div>
+
+  <script>
+    // 연도 표기만 가볍게 — JS 제거하려면 아래 줄 삭제하세요.
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
